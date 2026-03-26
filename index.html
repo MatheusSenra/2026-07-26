@@ -1,0 +1,47 @@
+<html>
+    <head>
+        <title>Contagem Regressiva</title>
+        <style>
+            body {
+                background-color: slategray;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            #timer {
+                color: aquamarine;
+                font-family: Calibri;
+                font-size: 144px;
+                font-weight: bold;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="timer"></div>
+    </body>
+    <script>
+        const divmod = (x, y) => [Math.floor(x / y), (x % y).toString().padStart(2, 0)];
+        const div = document.getElementById("timer");
+        const task = () => {
+            const now = new Date();
+            const tgt = new Date("2026-07-26 13:30");
+
+            let diff = parseInt((tgt - now) / 10);
+            if (diff <= 0) {
+                div.innerHTML = `0 00:00:00.0`;
+                return;
+            }
+            let c, s, m, h, days;
+
+            [diff, c] = divmod(diff, 100);
+            [diff, s] = divmod(diff, 60);
+            [diff, m] = divmod(diff, 60);
+            [days, h] = divmod(diff, 24);
+
+            div.innerHTML = `${days} ${h}:${m}:${s}.${c}`;
+            setTimeout(task, 10);
+        };
+        task();
+    </script>
+</html>
