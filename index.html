@@ -1,47 +1,114 @@
-<html>
-    <head>
-        <title>Contagem Regressiva</title>
-        <style>
-            body {
-                background-color: slategray;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-            }
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Contagem Regressiva 💍</title>
 
-            #timer {
-                color: aquamarine;
-                font-family: Calibri;
-                font-size: 144px;
-                font-weight: bold;
-            }
-        </style>
-    </head>
-    <body>
+    <!-- Senra was here -->
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100vh;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: white;
+        }
+
+        .container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.08);
+            padding: 40px 60px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+
+        h2 {
+            font-size: 20px;
+            margin-bottom: 30px;
+            opacity: 0.8;
+        }
+
+        #timer {
+            font-size: 80px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .labels {
+            margin-top: 10px;
+            font-size: 14px;
+            opacity: 0.7;
+            letter-spacing: 3px;
+        }
+
+        .heart {
+            font-size: 30px;
+            margin-top: 20px;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.2); opacity: 1; }
+            100% { transform: scale(1); opacity: 0.8; }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>💍 Contagem Regressiva</h1>
+        <h2>Para o grande dia!</h2>
+
         <div id="timer"></div>
-    </body>
+        <div class="labels">DIAS&nbsp;&nbsp;HORAS&nbsp;&nbsp;MINUTOS&nbsp;&nbsp;SEGUNDOS</div>
+
+        <div class="heart">❤️</div>
+    </div>
+
     <script>
         const divmod = (x, y) => [Math.floor(x / y), (x % y).toString().padStart(2, 0)];
         const div = document.getElementById("timer");
+
         const task = () => {
             const now = new Date();
-            const tgt = new Date("2026-07-26 13:30");
+            const tgt = new Date("2026-07-26T13:30:00");
 
-            let diff = parseInt((tgt - now) / 10);
+            let diff = Math.floor((tgt - now) / 1000);
+
             if (diff <= 0) {
-                div.innerHTML = `0 00:00:00.0`;
+                div.innerHTML = "💍 É HOJE! 💍";
                 return;
             }
-            let c, s, m, h, days;
 
-            [diff, c] = divmod(diff, 100);
+            let s, m, h, days;
+
             [diff, s] = divmod(diff, 60);
             [diff, m] = divmod(diff, 60);
             [days, h] = divmod(diff, 24);
 
-            div.innerHTML = `${days} ${h}:${m}:${s}.${c}`;
-            setTimeout(task, 10);
+            div.innerHTML = `${days}d ${h}h ${m}m ${s}s`;
+
+            setTimeout(task, 1000);
         };
+
         task();
     </script>
+</body>
 </html>
